@@ -1,0 +1,31 @@
+%h1 MTasks
+
+#header.pull-right
+  %form.form-inline.search(method="post" action="/search" role="form")
+    .form-group
+      %input.form-control(type="text" name="query" value="#{params[:query]}")
+      %input.btn.btn-sm(type="submit" value="Search")
+
+.clearfix
+
+%hr
+
+.row
+  .list.col-sm-12
+    - tasks.each do |task|
+      %form.task.form-horizontal(action='/#{task._id}' method='post')
+        .form-group
+          .col-sm-10
+            %textarea.content.form-control(type="text" name="content" rows="1" data-id="#{task._id}" data-previous="#{task.content}")= task.content
+          .col-sm-2
+            %input(type="hidden" name='_method' value='delete')
+            %button.btn.btn-sm.btn-danger(type="submit") &times;
+
+.row
+  .col-sm-12
+    %form.form-horizontal.add(method="post" action="/")
+      .form-group
+        .col-sm-10
+          %input.form-control.new-task(type="text" name="new_task")
+        .col-sm-2
+          %input.btn.btn-sm.btn-primary(type="submit" value="Add")
