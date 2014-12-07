@@ -1,15 +1,15 @@
-require 'grn_mini'
-require 'sinatra/base'
-require 'sinatra/reloader'
-require 'haml'
-require 'sass'
-require 'coffee-script'
-require 'pry'
+require "grn_mini"
+require "sinatra/base"
+require "sinatra/reloader"
+require "haml"
+require "sass"
+require "coffee-script"
+require "pry"
 
 class MTask < Sinatra::Base
   register Sinatra::Reloader
 
-  set :bind, '0.0.0.0'
+  set :bind, "0.0.0.0"
   set :env, :production
   set :port, 7400
 
@@ -22,7 +22,7 @@ class MTask < Sinatra::Base
     $tasks.setup_columns(content: "") if $tasks.empty?
   end
 
-  get '/' do
+  get "/" do
     query = params[:query] || ""
     if query.empty?
       hit_tasks = $tasks
@@ -33,24 +33,24 @@ class MTask < Sinatra::Base
     haml :index, locals: {params: params, tasks: hit_tasks}
   end
 
-  post '/' do
+  post "/" do
     content = params[:new_task]
     $tasks << {content: content} unless content.empty?
     redirect "/"
   end
 
-  post '/search' do
+  post "/search" do
     redirect "/?query=#{escape(params[:query])}"
   end
 
-  patch '/:id' do
+  patch "/:id" do
     task = $tasks[params[:id].to_i]
     content = params[:content]
     task.content = content
     redirect "/"
   end
 
-  delete '/:id' do
+  delete "/:id" do
     task = $tasks[params[:id].to_i]
     task.delete if task
     redirect "/"
@@ -58,12 +58,12 @@ class MTask < Sinatra::Base
 
   # assets
 
-  get '/main.css' do
-    sass :'sass/main'
+  get "/main.css" do
+    sass :"sass/main"
   end
 
-  get '/main.js' do
-    coffee :'coffee/main'
+  get "/main.js" do
+    coffee :"coffee/main"
   end
 
   # run
