@@ -11,6 +11,7 @@ class MTask < Sinatra::Base
   enable :method_override
 
   configure do
+    FileUtils.mkdir_p("./db")
     GrnMini::create_or_open("db/tasks.db")
     $tasks = GrnMini::Array.new("Tasks")
 
