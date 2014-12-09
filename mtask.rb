@@ -4,7 +4,6 @@ require "sinatra/reloader"
 require "haml"
 require "sass"
 require "coffee-script"
-require "pry"
 
 class MTask < Sinatra::Base
   register Sinatra::Reloader
