@@ -8,10 +8,6 @@ require "coffee-script"
 class MTask < Sinatra::Base
   register Sinatra::Reloader
 
-  set :bind, "0.0.0.0"
-  set :env, :production
-  set :port, 7400
-
   enable :method_override
 
   configure do
